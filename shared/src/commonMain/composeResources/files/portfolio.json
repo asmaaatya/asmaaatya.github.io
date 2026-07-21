@@ -1,0 +1,76 @@
+{
+  "personal": {
+    "name": "Asmaa Atya",
+    "title": "Mobile Software Engineer",
+    "description": "I build scalable, high-performance mobile applications with modern technologies and clean architecture.",
+    "location": "Cairo, Egypt"
+  },
+  "social": {
+    "github": "https://github.com/asmaaatya",
+    "linkedin": "https://www.linkedin.com/in/asmaa-atya/",
+    "email": "asmaa@example.com"
+  },
+  "skills": [
+    "Kotlin",
+    "Jetpack Compose",
+    "Flutter",
+    "Dart",
+    "BLoC",
+    "MVVM",
+    "Clean Architecture",
+    "Coroutines",
+    "Flow",
+    "Retrofit",
+    "Room",
+    "Hilt",
+    "Firebase"
+  ],
+  "experience": [
+    {
+      "company": "Informatique",
+      "position": "Mobile Software Engineer",
+      "startDate": "2023",
+      "endDate": "Present",
+      "description": "Developing and maintaining mobile applications using Android and Flutter."
+    }
+  ],
+  "projects": [
+    {
+      "title": "Healthcare Management App",
+      "description": "A healthcare application that allows patients to manage appointments, prescriptions, investigations, and medical services.",
+      "technologies": [
+        "Flutter",
+        "BLoC",
+        "Dio",
+        "REST API"
+      ],
+      "github": "",
+      "image": "healthcare.png"
+    },
+    {
+      "title": "Secure Authentication App",
+      "description": "A secure authentication application supporting biometric authentication and secure token management.",
+      "technologies": [
+        "Flutter",
+        "Dart",
+        "Biometric Authentication"
+      ],
+      "github": "",
+      "image": "auth.png"
+    },
+    {
+      "title": "News Application",
+      "description": "A modern Android news application built with offline-first architecture and pagination.",
+      "technologies": [
+        "Kotlin",
+        "Jetpack Compose",
+        "Room",
+        "Paging 3",
+        "Retrofit",
+        "Hilt"
+      ],
+      "github": "",
+      "image": "news.png"
+    }
+  ]
+}
