@@ -1,37 +1,57 @@
-This is a Kotlin Multiplatform project targeting Android, Web.
+# Portfolio App (Kotlin Multiplatform)
 
-* [/shared](./shared/src) is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - [commonMain](./shared/src/commonMain/kotlin) is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    the [iosMain](./shared/src/iosMain/kotlin) folder would be the right place for such calls.
-    Similarly, if you want to edit the Desktop (JVM) specific part, the [jvmMain](./shared/src/jvmMain/kotlin)
-    folder is the appropriate location.
+A modern portfolio application built with **Compose Multiplatform**, targeting Android and Web.
 
-### Running the apps
+## 🚀 Current Project State
 
-Use the run configurations provided by the run widget in your IDE's toolbar. You can also use these commands and options:
+The project is currently in the foundational stage, with the core architecture and data layer established.
 
-- Android app: `./gradlew :androidApp:assembleDebug`
-- Web app:
-  - Wasm target (faster, modern browsers): `./gradlew :webApp:wasmJsBrowserDevelopmentRun`
-  - JS target (slower, supports older browsers): `./gradlew :webApp:jsBrowserDevelopmentRun`
+### 🏗 Architecture & Project Structure
 
-### Running tests
+The code is organized under `com.asmaa.portfolio` in the `:shared` module:
 
-Use the run button in your IDE's editor gutter, or run tests using Gradle tasks:
+```text
+com.asmaa.portfolio
+├── App.kt                 # Main App entry point
+├── core
+│   ├── theme              # App colors, typography, and theme wrapper
+│   └── components         # Reusable UI components (SectionTitle, PrimaryButton)
+├── data
+│   └── PortfolioRepository.kt # Handles JSON data parsing
+├── model                  # Serializable data models (PersonalInfo, Project, Experience, etc.)
+└── feature                # UI Sections (Home, About, Skills, Experience, Projects, Contact)
+```
 
-- Android tests: `./gradlew :shared:testAndroidHostTest`
-- Web tests:
-  - Wasm target: `./gradlew :shared:wasmJsTest`
-  - JS target: `./gradlew :shared:jsTest`
+### 🛠 Tech Stack
+
+- **Compose Multiplatform**: For building declarative UI across Android and Web.
+- **Kotlinx Serialization**: Used for parsing portfolio data from JSON.
+- **Gradle Version Catalog**: For centralized dependency management.
+
+### 📄 Data Management
+
+- **Resource File**: `shared/src/commonMain/composeResources/files/portfolio.json` contains the source of truth for the portfolio content.
+- **Repository**: `PortfolioRepository` uses `kotlinx-serialization` to decode the JSON into structured Kotlin objects.
+
+## 📱 How to Run
+
+### Android
+```bash
+./gradlew :androidApp:assembleDebug
+```
+
+### Web
+- **Wasm Target**: `./gradlew :webApp:wasmJsBrowserDevelopmentRun`
+- **JS Target**: `./gradlew :webApp:jsBrowserDevelopmentRun`
 
 ---
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html),
-[Compose Multiplatform](https://github.com/JetBrains/compose-multiplatform/#compose-multiplatform),
-[Kotlin/Wasm](https://kotl.in/wasm/)…
+## 📅 Roadmap
 
-We would appreciate your feedback on Compose/Web and Kotlin/Wasm in the public Slack channel [#compose-web](https://slack-chats.kotlinlang.org/c/compose-web).
-If you face any issues, please report them on [YouTrack](https://youtrack.jetbrains.com/newIssue?project=CMP).
+- [x] Initial Project Reorganization
+- [x] Data Models & Serialization Setup
+- [x] Portfolio JSON Resource Creation
+- [ ] Implement UI for each Feature Section
+- [ ] Add Image Loading with Coil
+- [ ] Responsive Layout for Web/Mobile
+- [ ] Dark Mode Support
