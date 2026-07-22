@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 data class PortfolioData(
     val personal: PersonalInfo,
     val social: SocialLinks,
-    val skills: List<String>,
+    val skills: List<Skill>,
     val experience: List<Experience>,
     val projects: List<Project>
 )

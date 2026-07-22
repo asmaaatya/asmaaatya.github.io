@@ -1,37 +1,43 @@
 # Portfolio App (Kotlin Multiplatform)
 
-A modern portfolio application built with **Compose Multiplatform**, targeting Android and Web.
+A modern, data-driven portfolio application built with **Compose Multiplatform**, targeting Android and Web.
 
 ## 🚀 Current Project State
 
-The project is currently in the foundational stage, with the core architecture and data layer established.
+The application is now a fully functional one-page portfolio with dynamic content loading.
 
 ### 🏗 Architecture & Project Structure
 
-The code is organized under `com.asmaa.portfolio` in the `:shared` module:
+The code is organized under `com.asmaa.portfolio` in the `:shared` module, following clean architecture principles:
 
 ```text
 com.asmaa.portfolio
-├── App.kt                 # Main App entry point
+├── App.kt                 # Main App entry point & Theme wrapper
 ├── core
-│   ├── theme              # App colors, typography, and theme wrapper
-│   └── components         # Reusable UI components (SectionTitle, PrimaryButton)
+│   ├── theme              # Custom colors (AppColors), typography (AppTypography), and AppTheme
+│   └── components         # Shared UI components (PortfolioButton, SectionTitle)
 ├── data
-│   └── PortfolioRepository.kt # Handles JSON data parsing
-├── model                  # Serializable data models (PersonalInfo, Project, Experience, etc.)
-└── feature                # UI Sections (Home, About, Skills, Experience, Projects, Contact)
+│   └── PortfolioRepository.kt # Kotlinx-serialization logic for JSON parsing
+├── model                  # Serializable data models (PortfolioData, PersonalInfo, Skill, etc.)
+├── presentation           # State management (PortfolioViewModel, PortfolioState)
+└── feature
+    └── home               # Home feature entry point (HomeSection.kt)
+        └── components     # Feature-specific sections (Hero, About, Skills, Experience, Projects, Contact)
 ```
 
 ### 🛠 Tech Stack
 
-- **Compose Multiplatform**: For building declarative UI across Android and Web.
-- **Kotlinx Serialization**: Used for parsing portfolio data from JSON.
-- **Gradle Version Catalog**: For centralized dependency management.
+- **Compose Multiplatform**: Declarative UI for Android and Web.
+- **Kotlinx Serialization**: JSON decoding for portfolio content.
+- **Lifecycle ViewModel**: State management in `commonMain`.
+- **Material 3**: Modern design system implementation.
+- **Wasm/JS**: High-performance web targets.
 
-### 📄 Data Management
+### 📄 Data-Driven UI
 
-- **Resource File**: `shared/src/commonMain/composeResources/files/portfolio.json` contains the source of truth for the portfolio content.
-- **Repository**: `PortfolioRepository` uses `kotlinx-serialization` to decode the JSON into structured Kotlin objects.
+- **Source of Truth**: `shared/src/commonMain/composeResources/files/portfolio.json` contains all the portfolio details.
+- **Dynamic Content**: The UI automatically reflects any changes made to the JSON file, including skill categories, project lists, and work history.
+- **Responsive Scrolling**: Optimized for both touch and mouse wheel input using Compose `verticalScroll` and CSS adjustments.
 
 ## 📱 How to Run
 
@@ -51,7 +57,10 @@ com.asmaa.portfolio
 - [x] Initial Project Reorganization
 - [x] Data Models & Serialization Setup
 - [x] Portfolio JSON Resource Creation
-- [ ] Implement UI for each Feature Section
-- [ ] Add Image Loading with Coil
-- [ ] Responsive Layout for Web/Mobile
-- [ ] Dark Mode Support
+- [x] Implement UI for all Feature Sections (Hero, About, Skills, Experience, Projects, Contact)
+- [x] Data-driven UI integration (ViewModel + JSON)
+- [x] Basic scrollability and layout fixes for Web
+- [ ] Add Image Loading (Coil-kt/KMP)
+- [ ] Advanced Responsive Design (Desktop vs Mobile layouts)
+- [ ] Dark/Light Mode toggle
+- [ ] Animations & Transitions (Fade-in on scroll)

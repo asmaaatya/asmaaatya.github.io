@@ -11,19 +11,45 @@
     "email": "asmaa@example.com"
   },
   "skills": [
-    "Kotlin",
-    "Jetpack Compose",
-    "Flutter",
-    "Dart",
-    "BLoC",
-    "MVVM",
-    "Clean Architecture",
-    "Coroutines",
-    "Flow",
-    "Retrofit",
-    "Room",
-    "Hilt",
-    "Firebase"
+    {
+      "title": "Android",
+      "skills": [
+        "Kotlin",
+        "Jetpack Compose",
+        "Coroutines",
+        "Flow",
+        "Room",
+        "Retrofit",
+        "Hilt"
+      ]
+    },
+    {
+      "title": "Flutter",
+      "skills": [
+        "Flutter",
+        "Dart",
+        "BLoC",
+        "Dio",
+        "Firebase"
+      ]
+    },
+    {
+      "title": "Architecture",
+      "skills": [
+        "MVVM",
+        "Clean Architecture",
+        "SOLID"
+      ]
+    },
+    {
+      "title": "Tools",
+      "skills": [
+        "Git",
+        "GitHub",
+        "Postman",
+        "Android Studio"
+      ]
+    }
   ],
   "experience": [
     {

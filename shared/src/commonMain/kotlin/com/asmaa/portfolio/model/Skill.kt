@@ -1,7 +1,10 @@
 package com.asmaa.portfolio.model
 
+import kotlinx.serialization.Serializable
+
+
+@Serializable
 data class Skill(
-    val name: String,
-    val icon: String,
-    val level: Int // e.g., 0-100
+    val title: String,
+    val skills: List<String>
 )
