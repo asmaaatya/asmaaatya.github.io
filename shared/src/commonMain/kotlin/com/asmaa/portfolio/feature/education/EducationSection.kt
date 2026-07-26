@@ -1,4 +1,4 @@
-package com.asmaa.portfolio.feature.home.components
+package com.asmaa.portfolio.feature.education
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -16,11 +16,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.asmaa.portfolio.core.theme.AppColors
 import com.asmaa.portfolio.core.theme.AppTypography
-import com.asmaa.portfolio.model.Experience
+import com.asmaa.portfolio.model.Education
 
 @Composable
-fun ExperienceSection(
-    experienceList: List<Experience>
+fun EducationSection(
+    education: Education
 ) {
     Column(
         modifier = Modifier
@@ -31,7 +31,7 @@ fun ExperienceSection(
             )
     ) {
         Text(
-            text = "EXPERIENCE",
+            text = "EDUCATION",
             color = AppColors.Primary,
             style = AppTypography.labelLarge
         )
@@ -39,34 +39,18 @@ fun ExperienceSection(
         Spacer(modifier = Modifier.height(16.dp))
 
         Text(
-            text = "Where I've worked",
+            text = "My Academic Background",
             style = AppTypography.headlineMedium
         )
 
         Spacer(modifier = Modifier.height(48.dp))
 
-        Column(
-            verticalArrangement = Arrangement.spacedBy(24.dp)
-        ) {
-            experienceList.forEach { experience ->
-                ExperienceCard(
-                    company = experience.company,
-                    position = experience.position,
-                    period = "${experience.startDate} - ${experience.endDate}",
-                    description = experience.description
-                )
-            }
-        }
+        EducationCard(education)
     }
 }
 
 @Composable
-private fun ExperienceCard(
-    company: String,
-    position: String,
-    period: String,
-    description: String
-) {
+private fun EducationCard(education: Education) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -80,25 +64,30 @@ private fun ExperienceCard(
         ) {
             Column {
                 Text(
-                    text = position,
+                    text = education.degree,
                     style = AppTypography.titleLarge,
                     color = AppColors.TextPrimary
                 )
                 Text(
-                    text = company,
+                    text = education.university,
                     style = AppTypography.bodyLarge,
                     color = AppColors.Primary
                 )
             }
             Text(
-                text = period,
+                text = "${education.startDate} - ${education.endDate}",
                 style = AppTypography.bodyMedium,
                 color = AppColors.TextSecondary
             )
         }
         Spacer(modifier = Modifier.height(16.dp))
         Text(
-            text = description,
+            text = education.location,
+            style = AppTypography.bodyMedium,
+            color = AppColors.TextSecondary
+        )
+        Text(
+            text = "Grade: ${education.grade}",
             style = AppTypography.bodyMedium,
             color = AppColors.TextSecondary
         )

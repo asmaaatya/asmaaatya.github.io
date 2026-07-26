@@ -8,5 +8,5 @@ data class Experience(
     val position: String,
     val startDate: String,
     val endDate: String,
-    val description: String
+    val description: List<String>
 )

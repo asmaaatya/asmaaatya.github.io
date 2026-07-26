@@ -3,7 +3,6 @@ package com.asmaa.portfolio.model
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Skill(
-    val category: String,
-    val items: List<String>
+data class About(
+    val description: String
 )

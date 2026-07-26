@@ -1,60 +1,123 @@
 package com.asmaa.portfolio.feature.home
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
-import com.asmaa.portfolio.feature.home.components.AboutSection
-import com.asmaa.portfolio.feature.home.components.ContactSection
-import com.asmaa.portfolio.feature.home.components.ExperienceSection
+import com.asmaa.portfolio.core.navigation.NavigationItem
+import com.asmaa.portfolio.feature.about.AboutSection
+import com.asmaa.portfolio.feature.contact.ContactSection
+import com.asmaa.portfolio.feature.education.EducationSection
+import com.asmaa.portfolio.feature.experience.ExperienceSection
 import com.asmaa.portfolio.feature.home.components.HeroSection
 import com.asmaa.portfolio.feature.home.components.PortfolioTopBar
-import com.asmaa.portfolio.feature.home.components.ProjectsSection
-import com.asmaa.portfolio.feature.home.components.SkillsSection
+import com.asmaa.portfolio.feature.projects.ProjectsSection
+import com.asmaa.portfolio.feature.skills.SkillsSection
 import com.asmaa.portfolio.model.PortfolioData
+import kotlinx.coroutines.launch
 
 @Composable
 fun HomeSection(
     portfolioData: PortfolioData,
     modifier: Modifier = Modifier
 ) {
-    val scrollState = rememberScrollState()
-    
+    val listState = rememberLazyListState()
+    val coroutineScope = rememberCoroutineScope()
+
+    var selectedItem by remember {
+        mutableStateOf(NavigationItem.HOME)
+    }
+
+    val sectionIndexes = mapOf(
+        NavigationItem.HOME to 0,
+        NavigationItem.ABOUT to 1,
+        NavigationItem.SKILLS to 2,
+        NavigationItem.EXPERIENCE to 3,
+        NavigationItem.WORK to 4,
+        NavigationItem.EDUCATION to 5,
+        NavigationItem.CONTACT to 6
+    )
+
     Column(
-        modifier = modifier
-            .fillMaxSize()
-            .verticalScroll(scrollState)
+        modifier = modifier.fillMaxSize()
+
     ) {
 
-        PortfolioTopBar()
+        PortfolioTopBar(
+            selectedItem = selectedItem,
+            onItemClick = { item ->
+                selectedItem = item
 
-        HeroSection(
-            personalInfo = portfolioData.personal
+                val index = sectionIndexes[item]
+                    ?: return@PortfolioTopBar
+
+                coroutineScope.launch {
+                    listState.animateScrollToItem(index)
+                }
+            }
         )
 
-        AboutSection(
-            personalInfo = portfolioData.personal
-        )
+        Box(
+            modifier = Modifier.weight(1f)
+        ) {
+            LazyColumn(
+                state = listState,
+                modifier = Modifier.fillMaxSize()
+            ) {
 
-        SkillsSection(
-            skills = portfolioData.skills
-        )
+                item {
+                    HeroSection(
+                        personalInfo = portfolioData.personal
+                    )
+                }
 
-        ExperienceSection(
-            experienceList = portfolioData.experience
-        )
+                item {
+                    AboutSection(
+                        about = portfolioData.about,
+                        personalInfo = portfolioData.personal
+                    )
+                }
 
-        ProjectsSection(
-            projects = portfolioData.projects
-        )
+                item {
+                    SkillsSection(
+                        skills = portfolioData.skills
+                    )
+                }
 
-        ContactSection(
-            personalInfo = portfolioData.personal,
-            socialLinks = portfolioData.social
-        )
+                item {
+                    ExperienceSection(
+                        experienceList = portfolioData.experience
+                    )
+                }
+
+                item {
+                    ProjectsSection(
+                        projects = portfolioData.projects
+                    )
+                }
+
+                item {
+                    EducationSection(
+                        education = portfolioData.education
+                    )
+                }
+
+                item {
+                    ContactSection(
+                        personalInfo = portfolioData.personal,
+                        socialLinks = portfolioData.social
+                    )
+                }
+            }
+
+        }
     }
 }

@@ -2,42 +2,52 @@
 
 A modern, data-driven portfolio application built with **Compose Multiplatform**, targeting Android and Web.
 
-## 🚀 Current Project State
+## 🚀 Key Features
 
-The application is now a fully functional one-page portfolio with dynamic content loading.
+- **Full-Screen Snapping**: A seamless, section-by-section browsing experience using `SnapFlingBehavior`. Each part of the portfolio occupies exactly one screen height.
+- **Section Anchoring**: The top navigation bar automatically highlights the active section as you scroll or snap through the page.
+- **Nested Scrolling**: Smart handling of long content. Sections like *Experience* and *Projects* allow internal vertical scrolling before snapping to the next section.
+- **Interactive Call-to-Actions**: Functional buttons for "View My Work" (auto-scrolls to projects), LinkedIn profiles, and one-click Email messaging.
+- **Data-Driven UI**: Entire portfolio content is managed via a single JSON resource, making updates trivial without touching UI code.
 
 ### 🏗 Architecture & Project Structure
 
-The code is organized under `com.asmaa.portfolio` in the `:shared` module, following clean architecture principles:
+The project follows Clean Architecture principles with a modular feature-based structure in the `:shared` module:
 
 ```text
 com.asmaa.portfolio
 ├── App.kt                 # Main App entry point & Theme wrapper
 ├── core
 │   ├── theme              # Custom colors (AppColors), typography (AppTypography), and AppTheme
-│   └── components         # Shared UI components (PortfolioButton, SectionTitle)
+│   ├── components         # Shared UI components (PortfolioButton, SectionTitle)
+│   └── navigation         # Navigation models (NavigationItem)
 ├── data
 │   └── PortfolioRepository.kt # Kotlinx-serialization logic for JSON parsing
-├── model                  # Serializable data models (PortfolioData, PersonalInfo, Skill, etc.)
+├── model                  # Serializable data models (PortfolioData, PersonalInfo, About, etc.)
 ├── presentation           # State management (PortfolioViewModel, PortfolioState)
-└── feature
-    └── home               # Home feature entry point (HomeSection.kt)
-        └── components     # Feature-specific sections (Hero, About, Skills, Experience, Projects, Contact)
+└── feature                # Modular UI features
+    ├── home               # Home entry point & Section orchestrator
+    ├── about              # About section UI
+    ├── skills             # Tech stack grid
+    ├── experience         # Work history with internal scrolling
+    ├── projects           # Featured work gallery with internal scrolling
+    ├── education          # Academic background
+    └── contact            # Social links & footer
 ```
 
 ### 🛠 Tech Stack
 
-- **Compose Multiplatform**: Declarative UI for Android and Web.
-- **Kotlinx Serialization**: JSON decoding for portfolio content.
-- **Lifecycle ViewModel**: State management in `commonMain`.
-- **Material 3**: Modern design system implementation.
+- **Compose Multiplatform**: Declarative UI across Android and Web.
+- **Kotlinx Serialization**: Type-safe JSON decoding for portfolio content.
+- **Lifecycle ViewModel**: Consistent state management in `commonMain`.
+- **SnapFlingBehavior**: Custom snapping logic for a paginated feel.
+- **LocalUriHandler**: Platform-agnostic handling of external links (Web/Mobile).
 - **Wasm/JS**: High-performance web targets.
 
-### 📄 Data-Driven UI
+## 📄 Data Management
 
-- **Source of Truth**: `shared/src/commonMain/composeResources/files/portfolio.json` contains all the portfolio details.
-- **Dynamic Content**: The UI automatically reflects any changes made to the JSON file, including skill categories, project lists, and work history.
-- **Responsive Scrolling**: Optimized for both touch and mouse wheel input using Compose `verticalScroll` and CSS adjustments.
+- **Source of Truth**: `shared/src/commonMain/composeResources/files/portfolio.json`.
+- **Flexibility**: The UI automatically adapts to changes in the JSON, including adding new project highlights or experience bullet points.
 
 ## 📱 How to Run
 
@@ -56,11 +66,12 @@ com.asmaa.portfolio
 
 - [x] Initial Project Reorganization
 - [x] Data Models & Serialization Setup
-- [x] Portfolio JSON Resource Creation
-- [x] Implement UI for all Feature Sections (Hero, About, Skills, Experience, Projects, Contact)
-- [x] Data-driven UI integration (ViewModel + JSON)
-- [x] Basic scrollability and layout fixes for Web
+- [x] Comprehensive JSON Content Update
+- [x] Implement Full-Screen Snapping & Scrolling
+- [x] Implement Section Anchoring & Navigation Highlighting
+- [x] Add Education & Rich Experience Details
+- [x] Interactive Link Handling
 - [ ] Add Image Loading (Coil-kt/KMP)
 - [ ] Advanced Responsive Design (Desktop vs Mobile layouts)
 - [ ] Dark/Light Mode toggle
-- [ ] Animations & Transitions (Fade-in on scroll)
+- [ ] Scroll-triggered Animations (Fade-ins)
