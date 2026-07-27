@@ -1,5 +1,6 @@
 package com.asmaa.portfolio.feature.home
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,9 +14,9 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.asmaa.portfolio.core.navigation.NavigationItem
+import com.asmaa.portfolio.core.theme.AppColors
 import com.asmaa.portfolio.feature.about.AboutSection
 import com.asmaa.portfolio.feature.contact.ContactSection
-import com.asmaa.portfolio.feature.education.EducationSection
 import com.asmaa.portfolio.feature.experience.ExperienceSection
 import com.asmaa.portfolio.feature.home.components.HeroSection
 import com.asmaa.portfolio.feature.home.components.PortfolioTopBar
@@ -42,15 +43,14 @@ fun HomeSection(
         NavigationItem.SKILLS to 2,
         NavigationItem.EXPERIENCE to 3,
         NavigationItem.WORK to 4,
-        NavigationItem.EDUCATION to 5,
-        NavigationItem.CONTACT to 6
+        NavigationItem.CONTACT to 5
     )
 
     Column(
-        modifier = modifier.fillMaxSize()
-
+        modifier = modifier
+            .fillMaxSize()
+            .background(AppColors.Background)
     ) {
-
         PortfolioTopBar(
             selectedItem = selectedItem,
             onItemClick = { item ->
@@ -72,7 +72,6 @@ fun HomeSection(
                 state = listState,
                 modifier = Modifier.fillMaxSize()
             ) {
-
                 item {
                     HeroSection(
                         personalInfo = portfolioData.personal
@@ -105,19 +104,12 @@ fun HomeSection(
                 }
 
                 item {
-                    EducationSection(
-                        education = portfolioData.education
-                    )
-                }
-
-                item {
                     ContactSection(
                         personalInfo = portfolioData.personal,
                         socialLinks = portfolioData.social
                     )
                 }
             }
-
         }
     }
 }

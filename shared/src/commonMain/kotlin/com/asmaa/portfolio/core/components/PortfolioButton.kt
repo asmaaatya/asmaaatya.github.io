@@ -1,5 +1,6 @@
 package com.asmaa.portfolio.core.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -9,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.asmaa.portfolio.core.theme.AppColors
-
+import com.asmaa.portfolio.core.theme.AppTypography
 
 @Composable
 fun PrimaryButton(
@@ -26,13 +27,19 @@ fun PrimaryButton(
             contentColor = AppColors.Background
         ),
         contentPadding = PaddingValues(
-            horizontal = 24.dp,
-            vertical = 14.dp
+            horizontal = 32.dp,
+            vertical = 18.dp
         )
     ) {
-        Text(text = text)
+        Text(
+            text = text,
+            style = AppTypography.bodyLarge.copy(
+                fontWeight = androidx.compose.ui.text.font.FontWeight.Bold
+            )
+        )
     }
 }
+
 @Composable
 fun SecondaryButton(
     text: String,
@@ -43,10 +50,18 @@ fun SecondaryButton(
         onClick = onClick,
         modifier = modifier,
         shape = RoundedCornerShape(8.dp),
+        border = BorderStroke(1.dp, AppColors.Border),
         colors = ButtonDefaults.outlinedButtonColors(
             contentColor = AppColors.TextPrimary
+        ),
+        contentPadding = PaddingValues(
+            horizontal = 32.dp,
+            vertical = 18.dp
         )
     ) {
-        Text(text = text)
+        Text(
+            text = text,
+            style = AppTypography.bodyLarge
+        )
     }
 }

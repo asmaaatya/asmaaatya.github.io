@@ -10,16 +10,17 @@ object AppColors {
     val Card = Color(0xFF20221D)
 
     // Brand
-    val Primary = Color(0xFF8BC34A)
-    val PrimaryLight = Color(0xFFA6CE63)
+    val Primary = Color(0xFFC6FF00) // Neon Green
+    val PrimaryVariant = Color(0xFFE1FF80)
+    val PrimaryGlow = Color(0x33C6FF00)
 
     // Text
-    val TextPrimary = Color(0xFFF8FAF5)
-    val TextSecondary = Color(0xFFB5B8B0)
+    val TextPrimary = Color(0xFFFFFFFF)
+    val TextSecondary = Color(0xFF949494)
 
     // UI
-    val Border = Color(0xFF30332C)
-    val Divider = Color(0xFF252821)
+    val Border = Color(0xFF262626)
+    val Divider = Color(0xFF1A1A1A)
 
     // Status
     val Success = Color(0xFF8BC34A)

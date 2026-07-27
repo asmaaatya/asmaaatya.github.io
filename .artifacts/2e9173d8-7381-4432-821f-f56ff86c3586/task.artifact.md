@@ -1,0 +1,9 @@
+- [x] Add Material Icons Extended dependency
+- [x] Run Gradle Sync
+- [x] Update PortfolioTopBar with Download icon
+- [x] Update HeroSection with Social icons
+- [x] Update AboutSection with Stat icons
+- [x] Update SkillsSection with Category icons
+- [x] Update ProjectsSection with Folder icons
+- [x] Update ContactSection with Email icons
+- [x] Build and verify

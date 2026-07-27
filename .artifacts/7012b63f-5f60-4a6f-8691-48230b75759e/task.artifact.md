@@ -1,0 +1,19 @@
+- [/] Infrastructure & Dependencies
+    - [ ] Add Coil 3 and WindowSizeClass to `libs.versions.toml`
+    - [ ] Update `shared/build.gradle.kts` dependencies
+- [ ] Dark/Light Mode Implementation
+    - [ ] Define Light palette in `AppColors.kt`
+    - [ ] Update `AppTheme.kt` for dynamic switching
+    - [ ] Add theme state to `PortfolioViewModel.kt`
+    - [ ] Add toggle button to `PortfolioTopBar.kt`
+- [ ] Responsive Design
+    - [ ] Create `WindowSize` utility
+    - [ ] Make `HomeSection.kt` adaptive
+    - [ ] Refine padding and layouts for Mobile
+- [ ] Scroll Animations
+    - [ ] Create `ScrollAnimation` component
+    - [ ] Apply fade-ins to portfolio sections
+- [ ] Image Loading
+    - [ ] Update `Project` model and `portfolio.json`
+    - [ ] Integrate `AsyncImage` in `ProjectsSection.kt`
+- [ ] Final Verification

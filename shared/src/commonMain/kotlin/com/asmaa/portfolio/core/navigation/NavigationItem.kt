@@ -6,6 +6,5 @@ enum class NavigationItem(val label: String) {
     SKILLS("Skills"),
     EXPERIENCE("Experience"),
     WORK("Work"),
-    EDUCATION("Education"),
     CONTACT("Contact")
 }
