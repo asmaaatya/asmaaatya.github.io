@@ -4,9 +4,17 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Project(
-    val title: String,
-    val description: String,
+    val name: String,
+    val category: String,
     val technologies: List<String>,
-    val github: String,
-    val image: String
+    val description: String,
+    val highlights: List<String>,
+    val links: ProjectLinks
+)
+
+@Serializable
+data class ProjectLinks(
+    val playStore: String? = null,
+    val appStore: String? = null,
+    val github: String? = null
 )

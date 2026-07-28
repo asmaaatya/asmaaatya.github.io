@@ -1,7 +1,5 @@
 package com.asmaa.portfolio.feature.home.components
 
-import com.asmaa.portfolio.core.theme.AppColors
-import com.asmaa.portfolio.core.theme.AppTypography
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,6 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.asmaa.portfolio.core.components.PrimaryButton
 import com.asmaa.portfolio.core.components.SecondaryButton
+import com.asmaa.portfolio.core.theme.AppColors
+import com.asmaa.portfolio.core.theme.AppTypography
 import com.asmaa.portfolio.model.PersonalInfo
 
 @Composable
@@ -77,7 +77,7 @@ fun HeroSection(
             )
 
             Text(
-                text = personalInfo.description,
+                text = personalInfo.headline,
                 style = AppTypography.bodyLarge
             )
 

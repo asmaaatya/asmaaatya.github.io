@@ -6,6 +6,10 @@ import kotlinx.serialization.Serializable
 data class PersonalInfo(
     val name: String,
     val title: String,
-    val description: String,
+    val headline: String,
+    val email: String,
+    val phone: String,
+    val linkedin: String,
+    val github: String,
     val location: String
 )
