@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
+import androidx.compose.material.icons.filled.ArrowOutward
 import androidx.compose.material.icons.filled.Folder
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -41,48 +42,50 @@ fun ProjectsSection(
                 vertical = 100.dp
             )
     ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = "FEATURED PROJECTS",
-                color = AppColors.Primary,
-                style = AppTypography.labelLarge
-            )
-            
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                modifier = Modifier.clickable {}
-            ) {
-                Text(
-                    text = "View all projects",
-                    color = AppColors.TextSecondary,
-                    style = AppTypography.bodySmall
-                )
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.ArrowForward,
-                    contentDescription = null,
-                    tint = AppColors.Primary,
-                    modifier = Modifier.size(14.dp)
-                )
-            }
-        }
 
-        Spacer(modifier = Modifier.height(64.dp))
+        // ==============================
+        // SECTION HEADER
+        // ==============================
+
+        Text(
+            text = "FEATURED PROJECTS",
+            style = AppTypography.labelLarge,
+            color = AppColors.Primary
+        )
+
+        Spacer(
+            modifier = Modifier.height(20.dp)
+        )
+
+        Text(
+            text = "A selection of things I've built.",
+            style = AppTypography.displayMedium,
+            color = AppColors.TextPrimary,
+            fontWeight = FontWeight.Bold
+        )
+
+        Spacer(
+            modifier = Modifier.height(56.dp)
+        )
+
+        // ==============================
+        // PROJECTS
+        // ==============================
 
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(24.dp)
         ) {
-            projects.take(3).forEach { project ->
-                ProjectCard(
-                    project = project,
-                    modifier = Modifier.weight(1f)
-                )
-            }
+
+            projects
+                .take(3)
+                .forEach { project ->
+
+                    ProjectCard(
+                        project = project,
+                        modifier = Modifier.weight(1f)
+                    )
+                }
         }
     }
 }
@@ -94,34 +97,65 @@ private fun ProjectCard(
 ) {
     Column(
         modifier = modifier
-            .background(AppColors.Surface, RoundedCornerShape(16.dp))
-            .border(1.dp, AppColors.Border, RoundedCornerShape(16.dp))
-            .padding(24.dp)
+            .background(
+                color = AppColors.Surface,
+                shape = RoundedCornerShape(20.dp)
+            )
+            .border(
+                width = 1.dp,
+                color = AppColors.Border,
+                shape = RoundedCornerShape(20.dp)
+            )
+            .padding(20.dp)
     ) {
-        // Project Image Placeholder
+
+        // ==============================
+        // PROJECT PREVIEW
+        // ==============================
+
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .aspectRatio(1.5f)
-                .background(AppColors.Background, RoundedCornerShape(12.dp))
-                .border(1.dp, AppColors.Border, RoundedCornerShape(12.dp)),
+                .aspectRatio(1.35f)
+                .background(
+                    color = AppColors.Background,
+                    shape = RoundedCornerShape(14.dp)
+                )
+                .border(
+                    width = 1.dp,
+                    color = AppColors.Border,
+                    shape = RoundedCornerShape(14.dp)
+                ),
             contentAlignment = Alignment.Center
         ) {
+
+            // Temporary placeholder
+            // Replace with project mockup/image later
+
             Icon(
                 imageVector = Icons.Default.Folder,
                 contentDescription = null,
-                tint = AppColors.Primary.copy(alpha = 0.2f),
-                modifier = Modifier.size(64.dp)
+                tint = AppColors.Primary.copy(
+                    alpha = 0.15f
+                ),
+                modifier = Modifier.size(72.dp)
             )
-            // Icon in top left like design
+
+            // Project Type Icon
             Box(
                 modifier = Modifier
+                    .align(Alignment.TopStart)
                     .padding(12.dp)
-                    .size(32.dp)
-                    .background(AppColors.Primary.copy(alpha = 0.1f), RoundedCornerShape(8.dp))
-                    .align(Alignment.TopStart),
+                    .size(36.dp)
+                    .background(
+                        color = AppColors.Primary.copy(
+                            alpha = 0.10f
+                        ),
+                        shape = RoundedCornerShape(10.dp)
+                    ),
                 contentAlignment = Alignment.Center
             ) {
+
                 Icon(
                     imageVector = Icons.Default.Folder,
                     contentDescription = null,
@@ -131,60 +165,121 @@ private fun ProjectCard(
             }
         }
 
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(
+            modifier = Modifier.height(24.dp)
+        )
+
+        // ==============================
+        // PROJECT NAME
+        // ==============================
 
         Text(
             text = project.name,
             style = AppTypography.titleLarge,
-            color = AppColors.TextPrimary
+            color = AppColors.TextPrimary,
+            fontWeight = FontWeight.SemiBold
         )
-        
-        Spacer(modifier = Modifier.height(12.dp))
-        
+
+        Spacer(
+            modifier = Modifier.height(12.dp)
+        )
+
+        // ==============================
+        // DESCRIPTION
+        // ==============================
+
         Text(
             text = project.description,
             style = AppTypography.bodyMedium,
             color = AppColors.TextSecondary,
             maxLines = 3
         )
-        
-        Spacer(modifier = Modifier.height(24.dp))
-        
+
+        Spacer(
+            modifier = Modifier.height(20.dp)
+        )
+
+        // ==============================
+        // TECHNOLOGIES
+        // ==============================
+
         Row(
-            modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            project.technologies.take(3).forEach { tag ->
-                Text(
-                    text = tag,
-                    style = AppTypography.labelLarge.copy(fontWeight = FontWeight.Normal),
-                    color = AppColors.TextSecondary
-                )
-            }
+
+            project.technologies
+                .take(3)
+                .forEach { technology ->
+
+                    TechnologyTag(
+                        text = technology
+                    )
+                }
         }
-        
-        Spacer(modifier = Modifier.height(24.dp))
-        
+
+        Spacer(
+            modifier = Modifier.height(28.dp)
+        )
+
+        // ==============================
+        // VIEW PROJECT
+        // ==============================
+
         Row(
             modifier = Modifier
-                .fillMaxWidth()
-                .clickable {},
-            horizontalArrangement = Arrangement.End,
+                .clickable {
+                    // TODO: Open project details
+                },
             verticalAlignment = Alignment.CenterVertically
         ) {
-             Text(
+
+            Text(
                 text = "View Project",
-                style = AppTypography.bodySmall.copy(fontWeight = FontWeight.SemiBold),
+                style = AppTypography.bodySmall.copy(
+                    fontWeight = FontWeight.SemiBold
+                ),
                 color = AppColors.Primary
             )
-            Spacer(modifier = Modifier.width(4.dp))
+
+            Spacer(
+                modifier = Modifier.width(6.dp)
+            )
+
             Icon(
-                imageVector = Icons.AutoMirrored.Filled.ArrowForward,
-                contentDescription = null,
+                imageVector = Icons.Default.ArrowOutward,
+                contentDescription = "View Project",
                 tint = AppColors.Primary,
-                modifier = Modifier.size(14.dp)
+                modifier = Modifier.size(16.dp)
             )
         }
     }
 }
 
+@Composable
+private fun TechnologyTag(
+    text: String
+) {
+    Box(
+        modifier = Modifier
+            .background(
+                color = AppColors.Background,
+                shape = RoundedCornerShape(6.dp)
+            )
+            .border(
+                width = 1.dp,
+                color = AppColors.Border,
+                shape = RoundedCornerShape(6.dp)
+            )
+            .padding(
+                horizontal = 10.dp,
+                vertical = 6.dp
+            )
+    ) {
+
+        Text(
+            text = text,
+            style = AppTypography.bodySmall,
+            color = AppColors.TextSecondary
+        )
+    }
+}

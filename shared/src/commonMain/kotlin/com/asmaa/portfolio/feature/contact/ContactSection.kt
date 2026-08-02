@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -20,7 +19,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.ArrowUpward
 import androidx.compose.material.icons.filled.Code
 import androidx.compose.material.icons.filled.Email
-import androidx.compose.material.icons.filled.Public
+import androidx.compose.material.icons.filled.Link
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -30,10 +29,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.asmaa.portfolio.core.navigation.NavigationItem
 import com.asmaa.portfolio.core.theme.AppColors
 import com.asmaa.portfolio.core.theme.AppTypography
 import com.asmaa.portfolio.feature.home.components.PortfolioLogo
@@ -43,152 +41,279 @@ import com.asmaa.portfolio.model.SocialLinks
 @Composable
 fun ContactSection(
     personalInfo: PersonalInfo,
-    socialLinks: SocialLinks
+    socialLinks: SocialLinks ,
+    onBackToTopClick: () -> Unit = {},
+    onEmailClick: () -> Unit = {},
+    onLinkedInClick: () -> Unit = {},
+    onGitHubClick: () -> Unit = {}
 ) {
     Column(
         modifier = Modifier.fillMaxWidth()
     ) {
-        // CTA Section
+
+        // =========================================================
+        // CTA
+        // =========================================================
+
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 80.dp, vertical = 120.dp),
+                .padding(
+                    horizontal = 80.dp,
+                    vertical = 120.dp
+                ),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Icon
+
+            // Email Icon
+
             Box(
                 modifier = Modifier
-                    .size(80.dp)
-                    .background(AppColors.Primary.copy(alpha = 0.1f), CircleShape)
-                    .border(1.dp, AppColors.Primary.copy(alpha = 0.2f), CircleShape),
+                    .size(72.dp)
+                    .background(
+                        color = AppColors.Primary.copy(alpha = 0.10f),
+                        shape = CircleShape
+                    )
+                    .border(
+                        width = 1.dp,
+                        color = AppColors.Primary.copy(alpha = 0.25f),
+                        shape = CircleShape
+                    ),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
                     imageVector = Icons.Default.Email,
-                    contentDescription = null,
+                    contentDescription = "Email",
                     tint = AppColors.Primary,
-                    modifier = Modifier.size(32.dp)
+                    modifier = Modifier.size(28.dp)
                 )
             }
 
-            Spacer(modifier = Modifier.height(48.dp))
+            Spacer(
+                modifier = Modifier.height(40.dp)
+            )
+
+            // Heading
 
             Text(
                 text = buildAnnotatedString {
-                    append("Let's Build\nSomething ")
-                    withStyle(SpanStyle(color = AppColors.Primary)) {
-                        append("Great")
+
+                    append("Let's build\n")
+
+                    withStyle(
+                        SpanStyle(
+                            color = AppColors.Primary
+                        )
+                    ) {
+                        append("something great")
                     }
-                    append(" Together")
+
+                    append(" together.")
                 },
                 style = AppTypography.displayMedium,
-                textAlign = androidx.compose.ui.text.style.TextAlign.Center
+                color = AppColors.TextPrimary,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center
             )
 
-            Spacer(modifier = Modifier.height(32.dp))
+            Spacer(
+                modifier = Modifier.height(24.dp)
+            )
+
+            // Description
 
             Text(
-                text = "I'm currently open to new opportunities and\nexciting projects. Let's connect!",
+                text = "Have a project in mind or looking for a mobile developer?\nI'd love to hear from you.",
                 style = AppTypography.bodyLarge,
                 color = AppColors.TextSecondary,
-                textAlign = androidx.compose.ui.text.style.TextAlign.Center
+                textAlign = TextAlign.Center
             )
 
-            Spacer(modifier = Modifier.height(48.dp))
+            Spacer(
+                modifier = Modifier.height(40.dp)
+            )
 
-            Box(
-                modifier = Modifier
-                    .background(AppColors.Primary, RoundedCornerShape(8.dp))
-                    .clickable {}
-                    .padding(horizontal = 32.dp, vertical = 16.dp)
-            ) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(
-                        text = "Get In Touch",
-                        style = AppTypography.bodyLarge.copy(fontWeight = FontWeight.Bold),
-                        color = AppColors.Background
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowForward,
-                        contentDescription = null,
-                        tint = AppColors.Background,
-                        modifier = Modifier.size(20.dp)
-                    )
-                }
-            }
-            
-            Spacer(modifier = Modifier.height(80.dp))
-            
-            // Social Links Row
+            // CTA Button
+
+            ContactButton(
+                text = "Get In Touch",
+                onClick = onEmailClick
+            )
+
+            Spacer(
+                modifier = Modifier.height(64.dp)
+            )
+
+            // Social Links
+
             Row(
-                horizontalArrangement = Arrangement.spacedBy(48.dp)
+                horizontalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                ContactLinkItem("Email", personalInfo.email)
-                ContactLinkItem("LinkedIn", "linkedin.com/in/asmaa-atya")
-                ContactLinkItem("GitHub", "github.com/asmaa-atya")
+
+                ContactSocialButton(
+                    label = "Email",
+                    icon = Icons.Default.Email,
+                    onClick = onEmailClick
+                )
+
+                ContactSocialButton(
+                    label = "LinkedIn",
+                    icon = Icons.Default.Link,
+                    onClick = onLinkedInClick
+                )
+
+                ContactSocialButton(
+                    label = "GitHub",
+                    icon = Icons.Default.Code,
+                    onClick = onGitHubClick
+                )
             }
         }
 
-        HorizontalDivider(color = AppColors.Divider, thickness = 1.dp)
+        HorizontalDivider(
+            color = AppColors.Divider,
+            thickness = 1.dp
+        )
 
-        // Footer
+        // =========================================================
+        // FOOTER
+        // =========================================================
+
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 80.dp, vertical = 48.dp),
+                .padding(
+                    horizontal = 80.dp,
+                    vertical = 32.dp
+                ),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
+
+            // Logo
+
             PortfolioLogo()
-            
+
+            // Copyright
+
             Text(
                 text = "© 2026 ${personalInfo.name}. All rights reserved.",
                 style = AppTypography.bodySmall,
                 color = AppColors.TextSecondary
             )
 
+            // Back to top
+
+            Row(
+                modifier = Modifier
+                    .clickable(
+                        onClick = onBackToTopClick
+                    ),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+
+                Text(
+                    text = "Back to top",
+                    style = AppTypography.bodySmall.copy(
+                        fontWeight = FontWeight.SemiBold
+                    ),
+                    color = AppColors.TextSecondary
+                )
+
+                Icon(
+                    imageVector = Icons.Default.ArrowUpward,
+                    contentDescription = "Back to top",
+                    tint = AppColors.Primary,
+                    modifier = Modifier.size(18.dp)
+                )
+            }
         }
     }
 }
+
 
 @Composable
-private fun ContactLinkItem(label: String, value: String) {
-    val icon = when (label) {
-        "Email" -> Icons.Default.Email
-        "GitHub" -> Icons.Default.Code
-        "LinkedIn" -> Icons.Default.Public
-        else -> Icons.Default.Public
-    }
+private fun ContactSocialButton(
+    label: String,
+    icon: androidx.compose.ui.graphics.vector.ImageVector,
+    onClick: () -> Unit
+) {
     Row(
+        modifier = Modifier
+            .background(
+                color = AppColors.Surface,
+                shape = RoundedCornerShape(10.dp)
+            )
+            .border(
+                width = 1.dp,
+                color = AppColors.Border,
+                shape = RoundedCornerShape(10.dp)
+            )
+            .clickable(
+                onClick = onClick
+            )
+            .padding(
+                horizontal = 18.dp,
+                vertical = 12.dp
+            ),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(16.dp)
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        Box(
-            modifier = Modifier
-                .size(40.dp)
-                .background(AppColors.TextSecondary.copy(alpha = 0.1f), RoundedCornerShape(8.dp)),
-            contentAlignment = Alignment.Center
-        ) {
-            Icon(
-                imageVector = icon,
-                contentDescription = null,
-                tint = AppColors.Primary,
-                modifier = Modifier.size(20.dp)
-            )
-        }
-        Column {
-            Text(
-                text = label,
-                style = AppTypography.labelLarge,
-                color = AppColors.TextSecondary
-            )
-            Text(
-                text = value,
-                style = AppTypography.bodyMedium,
-                color = AppColors.TextPrimary
-            )
-        }
+
+        Icon(
+            imageVector = icon,
+            contentDescription = label,
+            tint = AppColors.Primary,
+            modifier = Modifier.size(18.dp)
+        )
+
+        Text(
+            text = label,
+            style = AppTypography.bodySmall.copy(
+                fontWeight = FontWeight.SemiBold
+            ),
+            color = AppColors.TextPrimary
+        )
     }
 }
 
+
+@Composable
+private fun ContactButton(
+    text: String,
+    onClick: () -> Unit
+) {
+    Row(
+        modifier = Modifier
+            .background(
+                color = AppColors.Primary,
+                shape = RoundedCornerShape(10.dp)
+            )
+            .clickable(
+                onClick = onClick
+            )
+            .padding(
+                horizontal = 28.dp,
+                vertical = 15.dp
+            ),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(10.dp)
+    ) {
+
+        Text(
+            text = text,
+            style = AppTypography.bodyLarge.copy(
+                fontWeight = FontWeight.Bold
+            ),
+            color = AppColors.Background
+        )
+
+        Icon(
+            imageVector = Icons.AutoMirrored.Filled.ArrowForward,
+            contentDescription = null,
+            tint = AppColors.Background,
+            modifier = Modifier.size(18.dp)
+        )
+    }
+}

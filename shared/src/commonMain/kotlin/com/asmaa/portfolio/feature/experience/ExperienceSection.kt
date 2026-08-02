@@ -38,41 +38,42 @@ fun ExperienceSection(
                 vertical = 100.dp
             )
     ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = "EXPERIENCE",
-                color = AppColors.Primary,
-                style = AppTypography.labelLarge
-            )
-            
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                Text(
-                    text = "My professional journey so far",
-                    color = AppColors.TextSecondary,
-                    style = AppTypography.bodySmall
-                )
-                Box(
-                    modifier = Modifier
-                        .size(6.dp)
-                        .background(AppColors.Primary, CircleShape)
-                )
-            }
-        }
 
-        Spacer(modifier = Modifier.height(64.dp))
+        // =================================
+        // SECTION HEADER
+        // =================================
+
+        Text(
+            text = "EXPERIENCE",
+            style = AppTypography.labelLarge,
+            color = AppColors.Primary
+        )
+
+        Spacer(
+            modifier = Modifier.height(20.dp)
+        )
+
+        Text(
+            text = "My professional journey so far.",
+            style = AppTypography.displayMedium,
+            color = AppColors.TextPrimary,
+            fontWeight = FontWeight.Bold
+        )
+
+        Spacer(
+            modifier = Modifier.height(56.dp)
+        )
+
+        // =================================
+        // TIMELINE
+        // =================================
 
         Column {
             experienceList.forEachIndexed { index, experience ->
+
                 ExperienceTimelineItem(
                     experience = experience,
-                    isLast = index == experienceList.size - 1
+                    isLast = index == experienceList.lastIndex
                 )
             }
         }
@@ -89,95 +90,138 @@ private fun ExperienceTimelineItem(
             .fillMaxWidth()
             .height(IntrinsicSize.Min)
     ) {
-        // Timeline Column
+
+        // =================================
+        // TIMELINE
+        // =================================
+
         Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.width(48.dp)
+            modifier = Modifier
+                .width(40.dp)
+                .fillMaxHeight(),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Dot
+
+            // Timeline Dot
             Box(
                 modifier = Modifier
-                    .size(12.dp)
-                    .background(AppColors.Primary, CircleShape)
-                    .border(4.dp, AppColors.Primary.copy(alpha = 0.2f), CircleShape)
+                    .size(14.dp)
+                    .background(
+                        color = AppColors.Primary,
+                        shape = CircleShape
+                    )
+                    .border(
+                        width = 4.dp,
+                        color = AppColors.Primary.copy(
+                            alpha = 0.15f
+                        ),
+                        shape = CircleShape
+                    )
             )
-            
-            // Line
+
+            // Timeline Line
             if (!isLast) {
                 Box(
                     modifier = Modifier
                         .width(1.dp)
                         .weight(1f)
-                        .background(AppColors.Border)
+                        .background(
+                            color = AppColors.Border
+                        )
                 )
             }
         }
-        
-        // Content Column
+
+        Spacer(
+            modifier = Modifier.width(28.dp)
+        )
+
+        // =================================
+        // EXPERIENCE CONTENT
+        // =================================
+
         Column(
             modifier = Modifier
                 .weight(1f)
-                .padding(bottom = 48.dp)
+                .padding(
+                    bottom = if (isLast) {
+                        0.dp
+                    } else {
+                        64.dp
+                    }
+                )
         ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.Top
+
+            // Date
+            Text(
+                text = buildString {
+                    append(experience.startDate)
+                    append(" — ")
+                    append(experience.endDate)
+                },
+                style = AppTypography.bodyMedium,
+                color = AppColors.Primary
+            )
+
+            Spacer(
+                modifier = Modifier.height(10.dp)
+            )
+
+            // Position
+            Text(
+                text = experience.position,
+                style = AppTypography.titleLarge,
+                color = AppColors.TextPrimary,
+                fontWeight = FontWeight.SemiBold
+            )
+
+            Spacer(
+                modifier = Modifier.height(4.dp)
+            )
+
+            // Company
+            Text(
+                text = experience.company,
+                style = AppTypography.bodyLarge.copy(
+                    fontWeight = FontWeight.Medium
+                ),
+                color = AppColors.TextSecondary
+            )
+
+            Spacer(
+                modifier = Modifier.height(20.dp)
+            )
+
+            // Description
+            Column(
+                verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
-                Column(modifier = Modifier.weight(1f)) {
-                    Text(
-                        text = "${experience.startDate} - ${experience.endDate}",
-                        style = AppTypography.bodyMedium,
-                        color = AppColors.Primary
-                    )
-                    
-                    Spacer(modifier = Modifier.height(8.dp))
-                    
-                    Text(
-                        text = experience.position,
-                        style = AppTypography.titleLarge,
-                        color = AppColors.TextPrimary
-                    )
-                    
-                    Text(
-                        text = experience.company,
-                        style = AppTypography.bodyLarge.copy(fontWeight = FontWeight.Medium),
-                        color = AppColors.TextSecondary
-                    )
-                }
-                
-                // Tags Row
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    // Displaying first 4 skills as tags
-                    experience.description.take(4).forEach { skill ->
-                         Box(
-                            modifier = Modifier
-                                .border(1.dp, AppColors.Border, RoundedCornerShape(4.dp))
-                                .padding(horizontal = 12.dp, vertical = 6.dp)
-                        ) {
-                            Text(
-                                text = skill.split(" ").first(), // Mocking tags
-                                style = AppTypography.bodySmall,
-                                color = AppColors.TextSecondary
-                            )
-                        }
+
+                experience.description.forEach { bullet ->
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.Top
+                    ) {
+
+                        Text(
+                            text = "•",
+                            color = AppColors.Primary,
+                            style = AppTypography.bodyMedium
+                        )
+
+                        Spacer(
+                            modifier = Modifier.width(10.dp)
+                        )
+
+                        Text(
+                            text = bullet,
+                            style = AppTypography.bodyMedium,
+                            color = AppColors.TextSecondary
+                        )
                     }
                 }
-            }
-            
-            Spacer(modifier = Modifier.height(16.dp))
-            
-            experience.description.forEach { bullet ->
-                Text(
-                    text = bullet,
-                    style = AppTypography.bodyMedium,
-                    color = AppColors.TextSecondary,
-                    modifier = Modifier.padding(vertical = 4.dp)
-                )
             }
         }
     }
 }
-

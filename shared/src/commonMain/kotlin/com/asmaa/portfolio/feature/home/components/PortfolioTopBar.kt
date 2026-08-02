@@ -23,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.asmaa.portfolio.core.components.SecondaryButton
 import com.asmaa.portfolio.core.navigation.NavigationItem
 import com.asmaa.portfolio.core.theme.AppColors
 import com.asmaa.portfolio.core.theme.AppTypography
@@ -32,89 +33,69 @@ import portfolioapp.shared.generated.resources.logo
 
 @Composable
 fun PortfolioTopBar(
-    selectedItem: NavigationItem?,
-    onItemClick: (NavigationItem) -> Unit,
-    modifier: Modifier = Modifier
+    selectedItem: NavigationItem,
+
+    onItemClick: (NavigationItem) -> Unit
 ) {
     Row(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxWidth()
+            .background(AppColors.Background)
+            .border(
+                width = 1.dp,
+                color = AppColors.Border
+            )
             .padding(
-                horizontal = 24.dp,
+                horizontal = 80.dp,
                 vertical = 20.dp
             ),
-        horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
 
-        PortfolioLogo(
-            modifier = Modifier.clickable { onItemClick(NavigationItem.HOME) }
+        Text(
+            text = "ASMAA ATYA",
+            style = AppTypography.titleLarge,
+            color = AppColors.TextPrimary,
+            fontWeight = FontWeight.Bold
         )
 
-        Row(
-            modifier = Modifier.weight(1f),
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(32.dp)
-            ) {
-                NavigationItem.entries.filter { it != NavigationItem.HOME }.forEach { item ->
-                    val isSelected = item == selectedItem
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        modifier = Modifier.clickable { onItemClick(item) }
-                    ) {
-                        Text(
-                            text = item.label,
-                            color = if (isSelected) AppColors.Primary else AppColors.TextSecondary,
-                            style = AppTypography.bodyMedium.copy(
-                                fontWeight = if (isSelected) FontWeight.SemiBold else FontWeight.Normal
-                            )
-                        )
-                        if (isSelected) {
-                            Spacer(modifier = Modifier.height(4.dp))
-                            Box(
-                                modifier = Modifier
-                                    .width(12.dp)
-                                    .height(2.dp)
-                                    .background(AppColors.Primary)
-                            )
-                        }
-                    }
-                }
-            }
-        }
+        Spacer(
+            modifier = Modifier.weight(1f)
+        )
 
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            Row(
-                modifier = Modifier
-                    .border(
-                        width = 1.dp,
-                        color = AppColors.Border,
-                        shape = RoundedCornerShape(8.dp)
-                    )
-                    .clickable {}
-                    .padding(horizontal = 16.dp, vertical = 10.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
+        NavigationItem.entries
+            .filter {
+                it != NavigationItem.HOME
+            }
+            .forEach { item ->
+
                 Text(
-                    text = "Download CV",
-                    color = AppColors.TextPrimary,
-                    style = AppTypography.bodyMedium
-                )
-                Icon(
-                    imageVector = Icons.Default.Download,
-                    contentDescription = null,
-                    tint = AppColors.Primary,
-                    modifier = Modifier.size(18.dp)
+                    text = item.label,
+                    modifier = Modifier
+                        .clickable {
+                            onItemClick(item)
+                        }
+                        .padding(
+                            horizontal = 16.dp,
+                            vertical = 8.dp
+                        ),
+                    color = if (selectedItem == item) {
+                        AppColors.Primary
+                    } else {
+                        AppColors.TextSecondary
+                    },
+                    style = AppTypography.bodySmall
                 )
             }
-        }
+
+        Spacer(
+            modifier = Modifier.width(20.dp)
+        )
+
+        SecondaryButton(
+            text = "Download CV",
+            onClick = {}
+        )
     }
 }
 @Composable

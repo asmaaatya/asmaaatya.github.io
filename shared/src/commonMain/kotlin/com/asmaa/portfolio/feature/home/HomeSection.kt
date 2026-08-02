@@ -74,7 +74,13 @@ fun HomeSection(
             ) {
                 item {
                     HeroSection(
-                        personalInfo = portfolioData.personal
+                        personalInfo = portfolioData.personal,
+                        onViewMyWorkClick = {
+                            selectedItem = NavigationItem.WORK
+                            coroutineScope.launch {
+                                listState.animateScrollToItem(4)
+                            }
+                        }
                     )
                 }
 
@@ -106,7 +112,21 @@ fun HomeSection(
                 item {
                     ContactSection(
                         personalInfo = portfolioData.personal,
-                        socialLinks = portfolioData.social
+                        socialLinks = portfolioData.social,
+                        onBackToTopClick = {
+                            coroutineScope.launch {
+                                listState.animateScrollToItem(0)
+                            }
+                        },
+                        onEmailClick = {
+                            // TODO: Open email client
+                        },
+                        onLinkedInClick = {
+                            // TODO: Open LinkedIn profile
+                        },
+                        onGitHubClick = {
+                            // TODO: Open GitHub profile
+                        }
                     )
                 }
             }
